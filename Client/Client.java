@@ -43,7 +43,6 @@ public class Client {
         inviaMessaggio("update§"+utente.getID());
 
         String msg = riceviMessaggio();
-        System.out.println(msg);
         String users[] = msg.split("§");
 
         chiudiConnessione(clientSocket, inFromServer, outToServer);
