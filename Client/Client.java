@@ -23,12 +23,14 @@ public class Client {
     public void iscrizioneChat () {
         inviaMessaggio("login§"+utente.getNickname());
         String msg[] = riceviMessaggio().split("§");
+
         if (msg[0].equals("unavailable")) {
             System.out.println("Nickname non disponibile! Iscrizione non avvenuta.");
         }
         else {
             utente.setID(msg[1]);
         }
+        
         chiudiConnessione(clientSocket, inFromServer, outToServer);
     }
 

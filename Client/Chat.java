@@ -154,8 +154,8 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
     
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
-        switch(comando)
-        {
+
+        switch(comando) {
             case "update":
                 try {
                     apriConnessione(IP, port, utente);
@@ -173,6 +173,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                     ioe.printStackTrace();
                 }
                 break;
+
             case "users":
                 try {
                     apriConnessione(IP, port, utente);
@@ -200,12 +201,15 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                     ioe.printStackTrace();
                 }
                 break;
+
             case "PUBBLICO":
                 cont=2;
                 break;
+
             case "PRIVATO":
                 cont=1;
                 break;
+
             default:
                 selected.setText(e.getActionCommand());
                 cont=1;
@@ -215,8 +219,9 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
 
     public boolean presente(ArrayList<String> arr,String a) {
         for(int i=0;i<arr.size();i++) {
-            if(arr.get(i).equals(a))
-            return true;
+            if(arr.get(i).equals(a)) {
+                return true;
+            }
         }
         return false;
     }
@@ -224,8 +229,8 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==10 && cont == 2) {
             String mex = msg.getText();
-            try
-            {
+            
+            try {
                 apriConnessione(IP, port, utente);
                 client.sendPublic(mex);
             }
@@ -233,24 +238,26 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             {
                 ioe.printStackTrace();
             }
+
             String m=msg.getText();
             MessagePanel panel = new MessagePanel(m,1,"Pubblico");
             msgs.addPanel(panel,panel.getAltezza());
             pannelli++;
             msg.setText("");
         }
+
         if (e.getKeyCode()==10 && cont == 1) {
             String mex = msg.getText();
             nickname = selected.getText();
-            try
-            {
+            
+            try {
                 apriConnessione(IP, port, utente);
                 client.sendPrivate(mex, nickname);
             }
-            catch (IOException ioe)
-            {
+            catch (IOException ioe) {
                 ioe.printStackTrace();
             }
+
             String m=msg.getText();
             String mm=selected.getText();
             MessagePanel panel = new MessagePanel(m,1,mm);

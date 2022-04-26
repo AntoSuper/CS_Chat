@@ -62,9 +62,8 @@ public class ListPanel extends JPanel
         removePanel(panels.indexOf(p));
     }
 
-    public void removePanel(int i) {
-        if(getPanels().size()>0)
-        {
+    public void removePanel (int i) {
+        if(getPanels().size()>0) {
             super.remove(i);
             panels.remove(i);
             revalidate();

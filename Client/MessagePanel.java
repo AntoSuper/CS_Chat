@@ -7,16 +7,17 @@ public class MessagePanel extends JPanel {
     private String mittente;
     private String type;
     private String body;
+
     private JPanel superiore;
     private JPanel inferiore;
     private JPanel centrale;
+
     private JLabel utente;
     private JLabel corpo;
     private JLabel tipo;
 
-    public MessagePanel (String x, int cont,String Type) {
-        if(cont==0)
-        {
+    public MessagePanel (String x, int cont, String Type) {
+        if(cont==0) {
             String msg[] = x.split("&");
             mittente = msg[0];
             type = msg[1];
@@ -24,6 +25,7 @@ public class MessagePanel extends JPanel {
             utente = new JLabel(mittente+ ": ");
             corpo = new JLabel(body);
             tipo = new JLabel("");
+
             if (type.equals("private")) {
                 tipo.setText("Privato");
             }
@@ -31,8 +33,8 @@ public class MessagePanel extends JPanel {
                 tipo.setText("Pubblico");
             }
         }
-        else
-        {
+
+        else {
             utente = new JLabel("ME:");
             corpo = new JLabel(x);
             tipo = new JLabel(Type);
@@ -81,28 +83,29 @@ public class MessagePanel extends JPanel {
         centrale.add(corpo, BorderLayout.CENTER);
 
         tipo.setOpaque(true);
-        if(cont==0)
+        if(cont==0) {
             tipo.setBackground(new Color(105,96,236));
-        else
+        }
+        else {
             tipo.setBackground(new Color(169,164,246));
+        }
         tipo.setFont(new Font("Serif", Font.ITALIC, 20));
         inferiore.add(tipo, BorderLayout.EAST);
 
     }
-    public void setUtente(String Utente)
-    {
+    public void setUtente(String Utente) {
         utente.setText(Utente+":");
     }
-    public void setCorpo(String Mex)
-    {
+
+    public void setCorpo(String Mex) {
         corpo.setText(Mex);
     }
-    public void setTipo(String Tipo)
-    {
+
+    public void setTipo(String Tipo) {
         tipo.setText(Tipo);
     }
-    public int getAltezza()
-    {
+
+    public int getAltezza() {
         return superiore.getHeight()+centrale.getHeight()+inferiore.getHeight();
     }
 }
