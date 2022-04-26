@@ -54,12 +54,13 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         utentiTimer.start();
         
         JPanel messaggistica = new JPanel();
-        JPanel pulsantiera = new JPanel();
-        JPanel interfaccia = new JPanel();
-
-        messaggistica.setLayout(new GridLayout(2,2));
-        interfaccia.setLayout(new GridLayout(1,1));
-
+        JPanel etichette =new JPanel();
+        JPanel interfaccia=new JPanel();
+        
+        messaggistica.setLayout(new GridLayout(2,1));
+        etichette.setLayout(new GridLayout(2,1));
+        interfaccia.setLayout(new BorderLayout());
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(500, 500));
         setLocationRelativeTo(null);
@@ -72,7 +73,8 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         JPanel panel = new JPanel();
         panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         panel.setBackground(new Color(173,216,230));
-        JLabel ut=new JLabel("                   UTENTI                   ");
+        JLabel ut=new JLabel("              UTENTI              ");
+        ut.setFont(new Font("Serif", Font.BOLD, 15));
         ut.setBackground(new Color(173,216,230));
         ut.setOpaque(true);
         panel.add(ut);
@@ -91,29 +93,32 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         selected.addKeyListener(this);
         
         
-        JLabel s1=new JLabel("Scrivi qui");
+        JLabel s1=new JLabel("Scrivi qui:                    ");
         s1.setOpaque(true);
         s1.setBackground(new Color(173,216,230));
         s1.setBorder(null);
+        s1.setForeground(Color.GRAY);
         s1.setFont(new Font("Serif", Font.ITALIC, 20));
         
-        JLabel s2=new JLabel("Utente: ");
+        JLabel s2=new JLabel("Utente:                        ");
         s2.setOpaque(true);
         s2.setBackground(new Color(173,216,230));
         s2.setBorder(null);
+        s2.setForeground(Color.GRAY);
         s2.setFont(new Font("Serif", Font.ITALIC, 20));
         
-        messaggistica.add(s1);
+        etichette.add(s1);
         messaggistica.add(msg);
-        messaggistica.add(s2);
+        etichette.add(s2);
         messaggistica.add(selected);
-
-        interfaccia.add(messaggistica);
+        
+        interfaccia.add(etichette,BorderLayout.WEST);
+        interfaccia.add(messaggistica,BorderLayout.CENTER);
     
         JButton r = new JButton("Cancella Messaggi");
         r.setBackground(new Color(173,216,230));
         r.setBorder(null);
-        r.setFont(new Font("Serif", Font.ITALIC, 20));
+        r.setFont(new Font("Serif", Font.BOLD, 20));
         r.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent paramActionEvent)
             {
@@ -154,8 +159,8 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
     
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
-
-        switch(comando) {
+        switch(comando)
+        {
             case "update":
                 try {
                     apriConnessione(IP, port, utente);
@@ -173,7 +178,6 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                     ioe.printStackTrace();
                 }
                 break;
-
             case "users":
                 try {
                     apriConnessione(IP, port, utente);
@@ -201,15 +205,6 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                     ioe.printStackTrace();
                 }
                 break;
-
-            case "PUBBLICO":
-                cont=2;
-                break;
-
-            case "PRIVATO":
-                cont=1;
-                break;
-
             default:
                 selected.setText(e.getActionCommand());
                 cont=1;
@@ -219,9 +214,8 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
 
     public boolean presente(ArrayList<String> arr,String a) {
         for(int i=0;i<arr.size();i++) {
-            if(arr.get(i).equals(a)) {
-                return true;
-            }
+            if(arr.get(i).equals(a))
+            return true;
         }
         return false;
     }
@@ -229,8 +223,8 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==10 && cont == 2) {
             String mex = msg.getText();
-            
-            try {
+            try
+            {
                 apriConnessione(IP, port, utente);
                 client.sendPublic(mex);
             }
@@ -238,26 +232,24 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             {
                 ioe.printStackTrace();
             }
-
             String m=msg.getText();
             MessagePanel panel = new MessagePanel(m,1,"Pubblico");
             msgs.addPanel(panel,panel.getAltezza());
             pannelli++;
             msg.setText("");
         }
-
         if (e.getKeyCode()==10 && cont == 1) {
             String mex = msg.getText();
             nickname = selected.getText();
-            
-            try {
+            try
+            {
                 apriConnessione(IP, port, utente);
                 client.sendPrivate(mex, nickname);
             }
-            catch (IOException ioe) {
+            catch (IOException ioe)
+            {
                 ioe.printStackTrace();
             }
-
             String m=msg.getText();
             String mm=selected.getText();
             MessagePanel panel = new MessagePanel(m,1,mm);
