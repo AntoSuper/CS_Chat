@@ -35,12 +35,12 @@ public class Data {
 
 	public String getOre(){
 		int ora = c.get(Calendar.HOUR_OF_DAY);
-		return ora;
+		return ""+ora;
 	}
 
 	public String getMinuti(){
 		int minuto = c.get(Calendar.MINUTE);
-		return minuto;
+		return ""+minuto;
 	}
 	
 	public String toString(){
