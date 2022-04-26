@@ -5,7 +5,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.*
 import javax.swing.border.BevelBorder;
 
 public class Chat extends JFrame implements ActionListener, KeyListener, WindowListener {
