@@ -11,7 +11,7 @@ import javax.swing.border.BevelBorder;
 public class Chat extends JFrame implements ActionListener, KeyListener, WindowListener {
     
     private int cont = 2;
-    private int pannelli=0;
+    private int pannelli = 0;
  
     private static String IP;
     private static int port;
@@ -25,8 +25,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
 
     private final ListPanel msgs;
     private final ListPanel utenti;
-    
-    private ArrayList<String> tantiUtenti = new ArrayList<String>();
+
     private String nickname;
 
     public Chat(String indirizzo, String nickname) throws Exception {
@@ -178,16 +177,20 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                     ioe.printStackTrace();
                 }
                 break;
+
             case "users":
                 try {
+                    utenti.removePanels();
+
                     apriConnessione(IP, port, utente);
                     String users[]=client.showUsers();
                     int i = 1;
     
-                    while (!users[i].equals("finish") && !presente(tantiUtenti,users[i])) {
+                    while (!users[i].equals("finish")) {
                         JPanel panel = new JPanel();
                         panel.setLayout(null);
                         panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+
                         JButton a=new JButton(users[i]);
                         a.setHorizontalAlignment(SwingConstants.CENTER);
                         a.setVerticalAlignment(SwingConstants.CENTER);
@@ -196,7 +199,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                         a.setBackground(new Color(173,216,230));
                         a.addActionListener(this);
                         panel.add(a);
-                        tantiUtenti.add(users[i]);
+
                         utenti.addPanel(panel,30);
                         i++;
                     }
@@ -205,6 +208,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                     ioe.printStackTrace();
                 }
                 break;
+
             default:
                 selected.setText(e.getActionCommand());
                 cont=1;
@@ -212,14 +216,6 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         }
     }
 
-    public boolean presente(ArrayList<String> arr,String a) {
-        for(int i=0;i<arr.size();i++) {
-            if(arr.get(i).equals(a))
-            return true;
-        }
-        return false;
-    }
-    
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==10 && cont == 2) {
             String mex = msg.getText();
@@ -273,7 +269,6 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         try {
             apriConnessione(IP, port, utente);
             client.disiscrizioneChat();
-            tantiUtenti.clear();
             System.exit(0);
         }
         catch (IOException ioe) {

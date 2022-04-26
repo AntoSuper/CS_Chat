@@ -72,6 +72,16 @@ public class ListPanel extends JPanel
         }
     }
 
+    public void removePanels () {
+        for (int i=1;i<getPanels().size();i++) {
+            super.remove(i);
+            panels.remove(i);
+            revalidate();
+            invalidate();
+            repaint();
+        }
+    }
+
     public ArrayList<JPanel> getPanels() {
         return this.panels;
     }
