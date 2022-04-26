@@ -4,11 +4,13 @@ public class Messaggio {
     private String type;
     private Utente mittente;
     private Utente destinatario;
+    private Data orario;
 
     public Messaggio (String body, String type, Utente mittente, Utente destinatario) {
         this.body=body;
         this.type=type;
         this.mittente=mittente;
+        this.orario = new Data();
         if (type.equals("private")) {
             this.destinatario=destinatario;
         }
@@ -33,7 +35,7 @@ public class Messaggio {
     }
 
     public String toString () {
-            return mittente.getNickname()+"&"+type+"&"+body;
+            return mittente.getNickname()+"&"+type+"&"+body+"&"+orario.getOre()+"&"+orario.getMinuti();
     }
 
     public boolean equals (Messaggio msg) {

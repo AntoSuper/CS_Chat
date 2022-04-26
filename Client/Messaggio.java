@@ -9,6 +9,7 @@ public class Messaggio {
         this.body=body;
         this.type=type;
         this.mittente=mittente;
+        
         if (type.equals("private")) {
             this.destinatario=destinatario;
         }

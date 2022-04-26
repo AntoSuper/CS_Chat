@@ -72,7 +72,7 @@ public class Server implements ActionListener {
                                                     for (int i=0;i<tantiUtenti.size();i++) {
                                                         if (y.equals(tantiUtenti.get(i))) {
                                                             tantiUtenti.remove(i);
-                                                            //eliminaMessaggi(y);
+                                                            eliminaMessaggi(y);
                                                             inviaMessaggio("byeBye§"+y.getID());
                                                             chiudiConnessione(connectionSocket, inFromClient, outToClient);
                                                             break;
@@ -197,7 +197,7 @@ public class Server implements ActionListener {
                                 if (d.getDifference(tantiUtenti.get(i).getData())>300) {
                                     System.out.println("Utente eliminato: " + tantiUtenti.get(i).getNickname());
                                     tantiLog.add(new Data().toString()+"--> "+"Utente eliminato: " + tantiUtenti.get(i).getNickname());
-                                    //eliminaMessaggi(tantiUtenti.get(i));
+                                    eliminaMessaggi(tantiUtenti.get(i));
                                     tantiUtenti.remove(i);
                                     break;
                                 }
@@ -294,7 +294,7 @@ public class Server implements ActionListener {
                 return i;
             }
         }
-        return -1;
+        return tantiMessaggi.size()-1;
     }
 
     public void eliminaMessaggi (Utente x) {

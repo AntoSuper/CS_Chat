@@ -32,6 +32,16 @@ public class Data {
 		return c.equals((GregorianCalendar)obj);
 		
 	}
+
+	public String getOre(){
+		int ora = c.get(Calendar.HOUR_OF_DAY);
+		return ora;
+	}
+
+	public String getMinuti(){
+		int minuto = c.get(Calendar.MINUTE);
+		return minuto;
+	}
 	
 	public String toString(){
 		int anno = c.get(Calendar.YEAR);
