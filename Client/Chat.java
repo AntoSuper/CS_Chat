@@ -11,6 +11,7 @@ import javax.swing.border.BevelBorder;
 public class Chat extends JFrame implements ActionListener, KeyListener, WindowListener {
     
     private int cont = 2;
+    private int pannelli=0;
  
     private static String IP;
     private static int port;
@@ -71,7 +72,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         JPanel panel = new JPanel();
         panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         panel.setBackground(new Color(173,216,230));
-        JLabel ut=new JLabel("                   UTENTI                     ");
+        JLabel ut=new JLabel("                   UTENTI                   ");
         ut.setBackground(new Color(173,216,230));
         ut.setOpaque(true);
         panel.add(ut);
@@ -116,6 +117,10 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         r.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent paramActionEvent)
             {
+                for(int j=pannelli-1;j>0;j--)
+                {
+                    msgs.removePanel(j);
+                }
                 msgs.removePanel(0);
             }
         });
@@ -161,6 +166,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                         MessagePanel panel = new MessagePanel(users[i],0,"");
                         msgs.addPanel(panel,panel.getAltezza());
                         i++;
+                        pannelli++;
                     }
                 }
                 catch (IOException ioe) {
@@ -230,6 +236,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             String m=msg.getText();
             MessagePanel panel = new MessagePanel(m,1,"Pubblico");
             msgs.addPanel(panel,panel.getAltezza());
+            pannelli++;
             msg.setText("");
         }
         if (e.getKeyCode()==10 && cont == 1) {
@@ -250,6 +257,8 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             msgs.addPanel(panel,panel.getAltezza());
             selected.setText("");
             msg.setText("");
+            cont=2;
+            pannelli++;
         }
     }
 
