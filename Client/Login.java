@@ -7,7 +7,7 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
-public class Finestra extends JFrame implements KeyListener, ActionListener {
+public class Login extends JFrame implements KeyListener, ActionListener {
 
     private JLabel indirizzo = new JLabel("Indirizzo IP: ", JLabel.CENTER);
     private JLabel username = new JLabel("Nome utente: ", JLabel.CENTER);
@@ -15,10 +15,10 @@ public class Finestra extends JFrame implements KeyListener, ActionListener {
     private JTextField nickname = new JTextField();
 
     public static void main(String[] args) {
-        new Finestra();
+        new Login();
     }
 
-    public Finestra() {
+    public Login() {
         super("Login chat");
         this.setSize(250,100);
         setLayout(new GridLayout(2,2));
