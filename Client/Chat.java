@@ -143,7 +143,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
 
         getContentPane().add(interfaccia, BorderLayout.SOUTH); 
         
-        JScrollPane scrollPane = new JScrollPane();
+        scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setViewportView(msgs);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
