@@ -125,22 +125,6 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         
         interfaccia.add(etichette,BorderLayout.WEST);
         interfaccia.add(messaggistica,BorderLayout.CENTER);
-    
-        JButton r = new JButton("Cancella Messaggi");
-        r.setBackground(new Color(173,216,230));
-        r.setBorder(null);
-        r.setFont(new Font("Serif", Font.BOLD, 20));
-        r.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent paramActionEvent)
-            {
-                for(int j=pannelli-1;j>0;j--)
-                {
-                    msgs.removePanel(j);
-                }
-                msgs.removePanel(0);
-            }
-        });
-
         getContentPane().add(interfaccia, BorderLayout.SOUTH); 
         
         scrollPane = new JScrollPane();
@@ -249,25 +233,30 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             {
                 ioe.printStackTrace();
             }
+
             String m=msg.getText();
             if(m.length()!=0)
             {
                 MessagePanel panel = new MessagePanel(m,1,"Pubblico");
                 msgs.addPanel(panel,panel.getAltezza());
                 pannelli++;
+
+                scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener(){
+                    public void adjustmentValueChanged (AdjustmentEvent e) {
+                        e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+                    }
+                });
             }
             msg.setText("");
         }
+
         if(e.getKeyCode()==127)
         {
-            if(pannelli>=1)
-            {
-                for(int j=1;j<=pannelli;j++)
-                {
-                    msgs.removePanel(j);
-                }
+            for (int i=0;i<pannelli;i++) {
+                msgs.removePanels();
             }
         }
+
         if (e.getKeyCode()==10 && cont == 1) {
             String mex = msg.getText();
             nickname = selected.getText();
@@ -280,6 +269,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             {
                 ioe.printStackTrace();
             }
+
             String m=msg.getText();
             String mm=selected.getText();
             if(m.length()!=0)
@@ -287,6 +277,12 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                 MessagePanel panel = new MessagePanel(m,1,mm);
                 msgs.addPanel(panel,panel.getAltezza());
                 pannelli++;
+
+                scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener(){
+                    public void adjustmentValueChanged (AdjustmentEvent e) {
+                        e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+                    }
+                });
             }
             selected.setText("");
             msg.setText("");
