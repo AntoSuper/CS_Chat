@@ -14,6 +14,7 @@ public class MessagePanel extends JPanel {
     private JLabel utente;
     private JLabel corpo;
     private JLabel tipo;
+    private JLabel orario;
 
     public MessagePanel (String x, int cont, String Type) {
         if(cont==0) {
@@ -24,6 +25,7 @@ public class MessagePanel extends JPanel {
             utente = new JLabel(mittente+ ": ");
             corpo = new JLabel(body);
             tipo = new JLabel("");
+            orario = new JLabel(msg[3]+":"+msg[4]);
 
             if (type.equals("private")) {
                 tipo.setText("Privato");
@@ -35,6 +37,8 @@ public class MessagePanel extends JPanel {
         else {
             utente = new JLabel("Me stesso:");
             corpo = new JLabel(x);
+            Data d = new Data();
+            orario = new JLabel(d.getOre()+":"+d.getMinuti());
             if (!Type.equals("Pubblico")) {
                 tipo = new JLabel("Destinatario: " + Type);
             }
@@ -94,6 +98,16 @@ public class MessagePanel extends JPanel {
         }
         tipo.setFont(new Font("Serif", Font.ITALIC, 20));
         inferiore.add(tipo, BorderLayout.EAST);
+
+        orario.setOpaque(true);
+        if(cont==0) {
+            orario.setBackground(new Color(105,96,236));
+        }
+        else {
+            orario.setBackground(new Color(169,164,246));
+        }
+        orario.setFont(new Font("Serif", Font.ITALIC, 20));
+        inferiore.add(orario, BorderLayout.WEST);
 
     }
     public void setUtente(String Utente) {
