@@ -79,6 +79,16 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         panel.add(ut);
         utenti.addPanel(panel,1);
         
+        JPanel panel1 = new JPanel();
+        panel1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        panel1.setBackground(new Color(173,216,230));
+        JLabel ms=new JLabel("              MESSAGGI              ");
+        ms.setFont(new Font("Serif", Font.BOLD, 15));
+        ms.setBackground(new Color(173,216,230));
+        ms.setOpaque(true);
+        panel1.add(ms);
+        msgs.addPanel(panel1,1);
+        
         msg = new JTextField();
         msg.setBackground(new Color(173,216,230));
         msg.setBorder(null);
@@ -92,14 +102,14 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
         selected.addKeyListener(this);
         
         
-        JLabel s1=new JLabel("Scrivi qui:                    ");
+        JLabel s1=new JLabel("Scrivi qui:                   ");
         s1.setOpaque(true);
         s1.setBackground(new Color(173,216,230));
         s1.setBorder(null);
         s1.setForeground(Color.GRAY);
         s1.setFont(new Font("Serif", Font.ITALIC, 20));
         
-        JLabel s2=new JLabel("Utente:                        ");
+        JLabel s2=new JLabel("Utente:                       ");
         s2.setOpaque(true);
         s2.setBackground(new Color(173,216,230));
         s2.setBorder(null);
@@ -128,7 +138,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                 msgs.removePanel(0);
             }
         });
-        getContentPane().add(r, BorderLayout.NORTH);
+        //getContentPane().add(r, BorderLayout.NORTH);
 
         getContentPane().add(interfaccia, BorderLayout.SOUTH); 
         
@@ -233,6 +243,16 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             msgs.addPanel(panel,panel.getAltezza());
             pannelli++;
             msg.setText("");
+        }
+        if(e.getKeyCode()==127)
+        {
+            if(pannelli>=1)
+            {
+                for(int j=1;j<=pannelli;j++)
+                {
+                    msgs.removePanel(j);
+                }
+            }
         }
         if (e.getKeyCode()==10 && cont == 1) {
             String mex = msg.getText();
