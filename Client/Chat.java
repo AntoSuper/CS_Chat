@@ -2,7 +2,6 @@ import java.net.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.util.ArrayList;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -239,9 +238,12 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                 ioe.printStackTrace();
             }
             String m=msg.getText();
-            MessagePanel panel = new MessagePanel(m,1,"Pubblico");
-            msgs.addPanel(panel,panel.getAltezza());
-            pannelli++;
+            if(m.length()!=0)
+            {
+                MessagePanel panel = new MessagePanel(m,1,"Pubblico");
+                msgs.addPanel(panel,panel.getAltezza());
+                pannelli++;
+            }
             msg.setText("");
         }
         if(e.getKeyCode()==127)
@@ -268,12 +270,15 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
             }
             String m=msg.getText();
             String mm=selected.getText();
-            MessagePanel panel = new MessagePanel(m,1,mm);
-            msgs.addPanel(panel,panel.getAltezza());
+            if(m.length()!=0)
+            {
+                MessagePanel panel = new MessagePanel(m,1,mm);
+                msgs.addPanel(panel,panel.getAltezza());
+                pannelli++;
+            }
             selected.setText("");
             msg.setText("");
             cont=2;
-            pannelli++;
         }
     }
 
