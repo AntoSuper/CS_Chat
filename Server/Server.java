@@ -38,6 +38,8 @@ public class Server implements ActionListener {
                 Socket connectionSocket = serverSocket.accept(); 
                 System.out.println("Client connesso! IP: " + connectionSocket.getRemoteSocketAddress());
                 tantiLog.add(new Data().toString()+"--> "+"Client connesso! IP: " + connectionSocket.getRemoteSocketAddress());
+
+                connectionSocket.setSoTimeout(2000);
                 this.inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
                 this.outToClient = new BufferedWriter(new OutputStreamWriter(connectionSocket.getOutputStream()));
 
@@ -50,8 +52,6 @@ public class Server implements ActionListener {
                         String comando = msg[0];
                         System.out.println("Comando selezionato da " + msg[1] + ": " + comando);
                         tantiLog.add(new Data().toString()+"--> "+"Comando selezionato da " + msg[1] + ": " + comando);
-
-                        //if (!controlloTimeout(msg[1])) {
 
                             switch (comando) {
                                 case "login": Utente x = new Utente(msg[1]);
@@ -166,11 +166,6 @@ public class Server implements ActionListener {
                                         chiudiConnessione(connectionSocket, inFromClient, outToClient);
                                     break;
                             }
-                        /*}
-                        else {
-                            inviaMessaggio("timeout");
-                            chiudiConnessione(connectionSocket, inFromClient, outToClient);
-                        }*/
                     }
                     else {
                         inviaMessaggio("error");
@@ -226,30 +221,6 @@ public class Server implements ActionListener {
             e.printStackTrace();
         }
     }
-
-    /*public boolean controlloTimeout (String id) {
-        if (id.length()==10) {
-            Data d = new Data();
-            if (utenteIscrittoID(new Utente(id, "ID")) && tantiUtenti.size()>0 && d.getDifference(recuperaUtenteID(id).getData())<1) {
-                for (int i=0;i<tantiUtenti.size();i++) {
-                    if (tantiUtenti.get(i).equals(recuperaUtenteID(id)) && tantiUtenti.get(i).getRichiamo()>5) {
-                        System.out.println("Utente eliminato: " + tantiUtenti.get(i).getNickname());
-                        tantiLog.add(new Data().toString()+"--> "+"Utente eliminato: " + tantiUtenti.get(i).getNickname());
-                        //eliminaMessaggi(tantiUtenti.get(i));
-                        tantiUtenti.remove(i);
-                        return true;
-                    }
-                    else if (tantiUtenti.get(i).equals(recuperaUtenteID(id)) && tantiUtenti.get(i).getRichiamo()<=5) {
-                        System.out.println("Utente richiamato: " + tantiUtenti.get(i).getNickname());
-                        tantiLog.add(new Data().toString()+"--> "+"Utente richiamato: " + tantiUtenti.get(i).getNickname());
-                        tantiUtenti.get(i).setRichiamo(tantiUtenti.get(i).getRichiamo()+1);
-                        return false;
-                    }
-                }
-            }
-        }
-        return false;
-    }*/
 
     public boolean controlloStringa(String s) {
         boolean check = false;

@@ -35,11 +35,21 @@ public class Data {
 
 	public String getOre(){
 		int ora = c.get(Calendar.HOUR_OF_DAY);
+		String s = ""+ora;
+
+		if (s.length()==0) {
+			return "0"+s;
+		}
 		return ""+ora;
 	}
 
 	public String getMinuti(){
 		int minuto = c.get(Calendar.MINUTE);
+		String s = ""+minuto;
+
+		if (s.length()==0) {
+			return "0"+s;
+		}
 		return ""+minuto;
 	}
 	
