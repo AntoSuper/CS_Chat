@@ -12,6 +12,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
     private int cont = 2;
     private int pannelli = 0;
  
+    private String nickname;
     private static String IP;
     private static int port;
     private static Utente utente;
@@ -21,11 +22,13 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
 
     private JTextField msg;
     private JTextField selected;
+    private JScrollPane scrollPane;
 
     private final ListPanel msgs;
     private final ListPanel utenti;
 
-    private String nickname;
+    private AudioPlayer audio = new AudioPlayer();
+    private String notificationSound = "notification.wav";
 
     public Chat(String indirizzo, String nickname) throws Exception {
         super("Chat");
@@ -137,7 +140,6 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                 msgs.removePanel(0);
             }
         });
-        //getContentPane().add(r, BorderLayout.NORTH);
 
         getContentPane().add(interfaccia, BorderLayout.SOUTH); 
         
@@ -180,6 +182,14 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                         msgs.addPanel(panel,panel.getAltezza());
                         i++;
                         pannelli++;
+
+                        audio.play(notificationSound);
+
+                        scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener(){
+                            public void adjustmentValueChanged (AdjustmentEvent e) {
+                                e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+                            }
+                        });
                     }
                 }
                 catch (IOException ioe) {
@@ -189,7 +199,9 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
 
             case "users":
                 try {
-                    utenti.removePanels();
+                    for (int i=0;i<4;i++) {
+                        utenti.removePanels();
+                    }
 
                     apriConnessione(IP, port, utente);
                     String users[]=client.showUsers();
@@ -200,7 +212,7 @@ public class Chat extends JFrame implements ActionListener, KeyListener, WindowL
                         panel.setLayout(null);
                         panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
-                        JButton a=new JButton(users[i]);
+                        JButton a = new JButton(users[i]);
                         a.setHorizontalAlignment(SwingConstants.CENTER);
                         a.setVerticalAlignment(SwingConstants.CENTER);
                         a.setLocation(0,0);
