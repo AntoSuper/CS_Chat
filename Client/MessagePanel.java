@@ -32,11 +32,15 @@ public class MessagePanel extends JPanel {
                 tipo.setText("Pubblico");
             }
         }
-
         else {
-            utente = new JLabel("ME:");
+            utente = new JLabel("Me stesso:");
             corpo = new JLabel(x);
-            tipo = new JLabel(Type);
+            if (!Type.equals("Pubblico")) {
+                tipo = new JLabel("Destinatario: " + Type);
+            }
+            else {
+                tipo = new JLabel(Type);
+            }
         }
 
         this.setLayout(new BorderLayout());
