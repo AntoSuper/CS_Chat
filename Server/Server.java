@@ -39,7 +39,7 @@ public class Server implements ActionListener {
                 System.out.println("Client connesso! IP: " + connectionSocket.getRemoteSocketAddress());
                 tantiLog.add(new Data().toString()+"--> "+"Client connesso! IP: " + connectionSocket.getRemoteSocketAddress());
 
-                connectionSocket.setSoTimeout(2000);
+                connectionSocket.setSoTimeout(8000);
                 this.inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
                 this.outToClient = new BufferedWriter(new OutputStreamWriter(connectionSocket.getOutputStream()));
 
