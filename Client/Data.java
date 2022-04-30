@@ -37,7 +37,7 @@ public class Data {
 		int ora = c.get(Calendar.HOUR_OF_DAY);
 		String s = ""+ora;
 
-		if (s.length()==0) {
+		if (s.length()==1) {
 			return "0"+s;
 		}
 		return ""+ora;
@@ -47,7 +47,7 @@ public class Data {
 		int minuto = c.get(Calendar.MINUTE);
 		String s = ""+minuto;
 
-		if (s.length()==0) {
+		if (s.length()==1) {
 			return "0"+s;
 		}
 		return ""+minuto;
